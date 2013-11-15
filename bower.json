@@ -1,0 +1,8 @@
+{
+  "name": "mini-angularjs",
+  "version": "0.0.1",
+  "dependencies": {
+    "lodash": "2.3.0",
+    "string": "1.6.1"
+  }
+}
