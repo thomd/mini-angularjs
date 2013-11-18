@@ -14,7 +14,7 @@ Scope.prototype.$watch = function(watchFn, listenerFn){
   this.$$watchers.push(watcher);
 }
 
-// run all teh watches which has been defined in the scope
+// run all the watches which has been defined in the scope once
 Scope.prototype.$$digestOnce = function(){
   var self = this;
   var dirty;
@@ -29,10 +29,16 @@ Scope.prototype.$$digestOnce = function(){
   });
   return dirty;
 }
+
+// run all watches <ttl>-times in order to resolve watcher dependencies
 Scope.prototype.$digest = function(){
+  var ttl = 10;
   var dirty;
   do {
     dirty = this.$$digestOnce();
+    if(dirty && !(ttl--)){
+      throw "10 digest iterations reached";
+    }
   } while(dirty);
 }
 
@@ -45,7 +51,10 @@ scope.firstName = document.getElementById('firstname');
 scope.countInfo = document.getElementById('count-info');
 scope.counter = 0;
 
-// register counter watcher (dependent from first-name watcher)
+
+// register watchers (watchers should be idempotent)
+
+// counter watcher (dependent from first-name watcher)
 scope.$watch(
   function(scope){
     return scope.counter;
@@ -57,7 +66,7 @@ scope.$watch(
   }
 );
 
-// register first-name watcher
+// first-name watcher
 scope.$watch(
   function(scope){
     return S(scope.firstName.value).trim().s;
@@ -67,7 +76,7 @@ scope.$watch(
   }
 );
 
-// register logger
+// logger watcher
 scope.$watch(
   function(){
     console.log(scope.counter);
