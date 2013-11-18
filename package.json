@@ -4,5 +4,8 @@
   "dependencies": {
     "lodash": "2.3.0",
     "string": "1.6.1"
+  },
+  "devDependencies": {
+    "mocha": "1.14.0"
   }
 }

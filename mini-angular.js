@@ -1,3 +1,6 @@
+var _ = require('lodash');
+var S = require('string');
+
 // ------ library -------------------------------------------------------------------------------
 
 function Scope(){
