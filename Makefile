@@ -1,7 +1,7 @@
-all: clean main.js
+all: clean app.js
 
-main.js:
-	browserify mini-angular.js -o main.js
+app.js:
+	browserify main.js -o app.js
 
 clean:
-	rm main.js
+	rm app.js
